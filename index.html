@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>DDR CONSTANT 計算機（仮）</title>
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.5.8/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.5.8/dist/cdn/beer.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.1/dist/cdn/material-dynamic-colors.min.js"></script>
+  </head>
+  <body>
+    <main class="responsive">
+      <h3>DDR CONSTANT 計算機（仮）</h3>
+      <p>
+        ゆくゆくプレビュー機能とかもあったら便利かなと思いつつ、取り急ぎ計算機だけ置いておきます。
+        間違ってても許してちょんまげ
+        Built with ♡ by <a href="https://twitter.com/zk_phi" class="link" target="_blank">zk-phi</a>
+      </p>
+      <div class="field label border">
+        <input type="text" value="600" id="bpm" onchange="update">
+        <label>実質BPM</label>
+        <span class="helper">例：150 の x4 が好きなら 600</span>
+      </div>
+      <p>
+        → CONSTANT 表示時間：<span id="ms">625</span>ms
+      </p>
+      <h6>※計算の根拠</h6>
+      <p>
+        「頭お菓子な俺たちのwiki」での検証から、「225000 / bpm」が「表示フレーム数 * 10 @60fps」に一致することがわかっている。ここから「ノーツの表示時間（秒）」は「22500 / 60 / bpm」すなわち「375 / bpm」になる。
+      </p>
+    </main>
+    <script>
+document.getElementById("bpm").addEventListener("input", (e) => {
+  const value = Number(e.target.value);
+  if (value > 0 && value !== Infinity) {
+    document.getElementById("ms").innerHTML = Math.ceil(375 / value * 1000);
+  } else {
+    document.getElementById("ms").innerHTML = "(BPM が不正です)";
+  }
+});
+    </script>
+  </body>
+</html>
